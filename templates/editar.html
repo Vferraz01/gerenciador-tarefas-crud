@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Editar tarefa | ListaFácil{% endblock %}
+{% block content %}
+<section class="cabecalho-pagina">
+    <div>
+        <p class="sobretitulo">ATUALIZAÇÃO DE REGISTRO</p>
+        <h1>Editar tarefa</h1>
+        <p class="descricao">Altere as informações e salve suas modificações.</p>
+    </div>
+</section>
+
+<section class="painel">
+    <form method="POST" class="formulario">
+        <label for="titulo">Título</label>
+        <input id="titulo" name="titulo" type="text" maxlength="120"
+               value="{{ tarefa.titulo }}" required>
+        <label for="descricao">Descrição <span>(opcional)</span></label>
+        <textarea id="descricao" name="descricao" rows="4">{{ tarefa.descricao or '' }}</textarea>
+        <div class="botoes-form">
+            <button class="botao primario" type="submit">Salvar alterações</button>
+            <a class="botao neutro" href="{{ url_for('index') }}">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

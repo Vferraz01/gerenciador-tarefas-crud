@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Minhas tarefas | ListaFácil{% endblock %}
+{% block content %}
+<section class="cabecalho-pagina">
+    <div>
+        <p class="sobretitulo">ORGANIZAÇÃO PESSOAL</p>
+        <h1>Minhas tarefas</h1>
+        <p class="descricao">Cadastre, acompanhe e organize suas atividades.</p>
+    </div>
+    <div class="contador">{{ tarefas|length }} tarefa(s)</div>
+</section>
+
+<section class="painel">
+    <h2>Adicionar tarefa</h2>
+    <form action="{{ url_for('criar') }}" method="POST" class="formulario">
+        <label for="titulo">Título</label>
+        <input id="titulo" name="titulo" type="text" maxlength="120"
+               placeholder="Ex.: Estudar Python" required>
+        <label for="descricao">Descrição <span>(opcional)</span></label>
+        <textarea id="descricao" name="descricao" rows="3"
+                  placeholder="Adicione detalhes sobre a tarefa..."></textarea>
+        <button class="botao primario" type="submit">+ Cadastrar tarefa</button>
+    </form>
+</section>
+
+<section class="lista">
+    <div class="titulo-lista">
+        <h2>Tarefas cadastradas</h2>
+        <span>{{ tarefas|selectattr('concluida')|list|length }} concluída(s)</span>
+    </div>
+
+    {% if tarefas %}
+        {% for tarefa in tarefas %}
+        <article class="tarefa {% if tarefa.concluida %}finalizada{% endif %}">
+            <div class="tarefa-conteudo">
+                <div class="linha-titulo">
+                    <h3>{{ tarefa.titulo }}</h3>
+                    {% if tarefa.concluida %}
+                        <span class="status concluida">Concluída</span>
+                    {% else %}
+                        <span class="status pendente">Pendente</span>
+                    {% endif %}
+                </div>
+                {% if tarefa.descricao %}
+                    <p>{{ tarefa.descricao }}</p>
+                {% else %}
+                    <p class="sem-descricao">Sem descrição.</p>
+                {% endif %}
+                <small>Criada em {{ tarefa.criada_em.strftime('%d/%m/%Y às %H:%M') }}</small>
+            </div>
+            <div class="acoes">
+                <form action="{{ url_for('alternar', tarefa_id=tarefa.id) }}" method="POST">
+                    <button class="botao pequeno neutro" type="submit">
+                        {% if tarefa.concluida %}Reabrir{% else %}Concluir{% endif %}
+                    </button>
+                </form>
+                <a class="botao pequeno editar" href="{{ url_for('editar', tarefa_id=tarefa.id) }}">Editar</a>
+                <form action="{{ url_for('excluir', tarefa_id=tarefa.id) }}" method="POST"
+                      onsubmit="return confirm('Tem certeza de que deseja excluir esta tarefa?');">
+                    <button class="botao pequeno perigo" type="submit">Excluir</button>
+                </form>
+            </div>
+        </article>
+        {% endfor %}
+    {% else %}
+        <div class="vazio">
+            <h3>Nenhuma tarefa por enquanto</h3>
+            <p>Use o formulário acima para cadastrar sua primeira tarefa.</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
