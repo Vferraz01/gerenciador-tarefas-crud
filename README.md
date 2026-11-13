@@ -13,7 +13,7 @@ Aplicação web de gerenciamento de tarefas desenvolvida como projeto de estudo 
 
 ## Tecnologias
 
-- Python 3.10 ou superior
+- Python 3
 - Flask
 - Flask-SQLAlchemy
 - SQLite
