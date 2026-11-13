@@ -104,10 +104,7 @@ gerenciador_tarefas_crud/
 - Organização de arquivos em uma aplicação Flask.
 - Controle de versão com Git e publicação no GitHub.
 
-## Observações
-
-Este projeto tem finalidade educacional. Antes de utilizá-lo em produção, implemente medidas adicionais de segurança, como proteção CSRF, gerenciamento seguro de chave secreta, autenticação e validação mais abrangente dos dados.
 
 ## Autor
 
-Desenvolvido por **[Seu nome]** como projeto de estudo de desenvolvimento web e operações CRUD.
+Desenvolvido como projeto de estudo de desenvolvimento web e operações CRUD.
